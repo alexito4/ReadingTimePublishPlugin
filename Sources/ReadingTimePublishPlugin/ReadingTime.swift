@@ -6,12 +6,16 @@ public struct ReadingTimeMetadata {
 }
 
 extension Plugin {
-    public static var readingTime: Self {
+    
+    /// Plugin that calculates the average reading time of each `Item`.
+    /// Use `Item.readingTime` to access the data.
+    /// - Parameter wordsPerMinute: Average reading speed (words per minute) used to calculate the reading time.
+    public static func readingTime(wordsPerMinute: Int = 200) -> Self {
         Plugin(name: "Reading time") { context in
             context.mutateAllSections { section in
                 section.mutateItems { item in
                     let words = countWords(item.content.body.html)
-                    let minutes = estimateTime(for: words)
+                    let minutes = estimateTime(for: words, wordsPerMinute: wordsPerMinute)
                     print("Item: \(item.title) has \(words) words and read in \(minutes) minutes")
                     data[item] = ReadingTimeMetadata(minutes: minutes)
                 }
@@ -39,7 +43,7 @@ private func countWords(_ string: String) -> Int {
     return words.count
 }
 
-private func estimateTime(for words: Int) -> Double {
-    let minutes = Double(words) / 200
+private func estimateTime(for words: Int, wordsPerMinute: Int) -> Double {
+    let minutes = Double(words) / Double(wordsPerMinute)
     return minutes
 }
