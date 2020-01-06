@@ -1,11 +1,11 @@
 import Foundation
 import Publish
 
-public protocol ReadingTimeMetadata {
-    var readingTime: Double? { get set }
+public struct ReadingTimeMetadata {
+    public let minutes: Double
 }
 
-extension Plugin where Site.ItemMetadata: ReadingTimeMetadata {
+extension Plugin {
     public static var readingTime: Self {
         Plugin(name: "Reading time") { context in
             context.mutateAllSections { section in
@@ -13,12 +13,23 @@ extension Plugin where Site.ItemMetadata: ReadingTimeMetadata {
                     let words = countWords(item.content.body.html)
                     let minutes = estimateTime(for: words)
                     print("Item: \(item.title) has \(words) words and read in \(minutes) minutes")
-                    item.metadata.readingTime = minutes
+                    data[item] = ReadingTimeMetadata(minutes: minutes)
                 }
             }
         }
     }
 }
+
+public extension Item {
+    var readingTime: ReadingTimeMetadata {
+        guard let metadata = data[self] else {
+            fatalError()
+        }
+        return metadata
+    }
+}
+
+private var data = [AnyHashable: ReadingTimeMetadata]()
 
 private func countWords(_ string: String) -> Int {
     // Ideally we would be able to get a plain string (even if it's the original markdown) from Plot
