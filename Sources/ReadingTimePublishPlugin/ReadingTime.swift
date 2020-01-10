@@ -1,8 +1,9 @@
 import Foundation
 import Publish
 
-public struct ReadingTimeMetadata {
+public struct ReadingTimeMetadata: Equatable {
     public let minutes: Double
+    public let words: Int
 }
 
 extension Plugin {
@@ -14,10 +15,7 @@ extension Plugin {
         Plugin(name: "Reading time") { context in
             context.mutateAllSections { section in
                 section.mutateItems { item in
-                    let words = countWords(item.content.body.html)
-                    let minutes = estimateTime(for: words, wordsPerMinute: wordsPerMinute)
-                    print("Item: \(item.title) has \(words) words and read in \(minutes) minutes")
-                    data[item] = ReadingTimeMetadata(minutes: minutes)
+                    data[item] = estimateTime(for: item.content.body.html, wordsPerMinute: wordsPerMinute)
                 }
             }
         }
@@ -35,15 +33,22 @@ public extension Item {
 
 private var data = [AnyHashable: ReadingTimeMetadata]()
 
-private func countWords(_ string: String) -> Int {
-    // Ideally we would be able to get a plain string (even if it's the original markdown) from Plot
-    let plain = string.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-    let separators = CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters)
-    let words = plain.components(separatedBy: separators)
-    return words.count
+func estimateTime(for string: String, wordsPerMinute: Int) -> ReadingTimeMetadata {
+    let words = countWords(string)
+    let minutes = Double(words) / Double(wordsPerMinute)
+    return ReadingTimeMetadata(
+        minutes: minutes,
+        words: words
+    )
 }
 
-private func estimateTime(for words: Int, wordsPerMinute: Int) -> Double {
-    let minutes = Double(words) / Double(wordsPerMinute)
-    return minutes
+private func countWords(_ string: String) -> Int {
+    // Ideally we would be able to get a plain string (even if it's the original markdown) from Plot
+    let plain = string.replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression, range: nil)
+    let separators = CharacterSet
+        .whitespacesAndNewlines
+        .union(.punctuationCharacters)
+    let words = plain.components(separatedBy: separators)
+        .filter({ !$0.isEmpty })
+    return words.count
 }

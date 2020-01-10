@@ -14,10 +14,13 @@ The plugin can then be used within any publishing pipeline like this:
 import PublishReadingTime
 ...
 try DeliciousRecipes().publish(using: [
+    ...
+    .addMarkdownFiles(),
     .installPlugin(.readingTime()),
     ...
 ])
 ```
+Note that it must be installed after the Items are created (in this case by `addMarkdownFiles()` ).
 
 Then you can add the information on your Theme:
 
