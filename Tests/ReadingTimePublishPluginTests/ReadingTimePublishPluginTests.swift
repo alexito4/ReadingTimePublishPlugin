@@ -4,7 +4,6 @@ import XCTest
 final class PublishReadingTimeTests: XCTestCase {
     
     func testShortText() {
-        XCTFail()
         Assert(
             "one",
             words: 1,
