@@ -1,7 +1,7 @@
 import XCTest
 @testable import ReadingTimePublishPlugin
 
-final class PublishReadingTimeTests: XCTestCase {
+final class ReadingTimeTests: XCTestCase {
     
     func testShortText() {
         Assert(
@@ -98,10 +98,6 @@ final class PublishReadingTimeTests: XCTestCase {
             minutes: 0.025
         )
     }
-
-    static var allTests = [
-        ("testShortText", testShortText),
-    ]
 }
 
 func Assert(
