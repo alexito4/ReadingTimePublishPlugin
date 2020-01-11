@@ -25,7 +25,11 @@ extension Plugin {
 public extension Item {
     var readingTime: ReadingTimeMetadata {
         guard let metadata = data[self] else {
-            fatalError()
+            output(
+                #"Item "\#(self.title)" doesn't have ReadingTimeMetadata. Check that the ReadingTime plugin is installed after the creation of this item."#,
+                .error
+            )
+            return ReadingTimeMetadata(minutes: 0, words: 0)
         }
         return metadata
     }
