@@ -19,8 +19,6 @@
 
 Reading time estimation plugin for [Publish](https://github.com/JohnSundell/Publish).
 
-⚠️ Very much work in progress. (better calculation)
-
 ## Installation
 
 ## Usage
