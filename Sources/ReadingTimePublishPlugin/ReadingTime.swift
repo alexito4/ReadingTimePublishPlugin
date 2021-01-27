@@ -15,7 +15,7 @@ extension Plugin {
         Plugin(name: "Reading time") { context in
             context.mutateAllSections { section in
                 section.mutateItems { item in
-                    data[item] = estimateTime(for: item.content.body.html, wordsPerMinute: wordsPerMinute)
+                    data[item.path.string] = estimateTime(for: item.content.body.html, wordsPerMinute: wordsPerMinute)
                 }
             }
         }
@@ -24,7 +24,7 @@ extension Plugin {
 
 public extension Item {
     var readingTime: ReadingTimeMetadata {
-        guard let metadata = data[self] else {
+        guard let metadata = data[path.string] else {
             output(
                 #"Item "\#(self.title)" doesn't have ReadingTimeMetadata. Check that the ReadingTime plugin is installed after the creation of this item."#,
                 .error
