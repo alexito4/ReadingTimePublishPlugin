@@ -7,33 +7,38 @@ final class ReadingTimeTests: XCTestCase {
         Assert(
             "one",
             words: 1,
-            minutes: 0.005
+            minutes: 0,
+            timeMinutes: 0.005
         )
         Assert(
             "this has 4 words",
             words: 4,
-            minutes: 0.02
+            minutes: 0,
+            timeMinutes: 0.02
         )
     }
     
     func testLongText() {
         Assert(
-           loremIpsum,
-           words: 1000,
-           minutes: 5
-       )
+            loremIpsum,
+            words: 1000,
+            minutes: 5,
+            timeMinutes: 5
+        )
     }
     
     func testEmptyText() {
         Assert(
             "",
             words: 0,
-            minutes: 0
+            minutes: 0,
+            timeMinutes: 0
         )
         Assert(
             " ",
             words: 0,
-            minutes: 0
+            minutes: 0,
+            timeMinutes: 0
         )
         Assert(
             """
@@ -41,12 +46,14 @@ final class ReadingTimeTests: XCTestCase {
             
             """,
             words: 0,
-            minutes: 0
+            minutes: 0,
+            timeMinutes: 0
         )
         Assert(
             " . ",
             words: 0,
-            minutes: 0
+            minutes: 0,
+            timeMinutes: 0
         )
     }
     
@@ -54,17 +61,20 @@ final class ReadingTimeTests: XCTestCase {
         Assert(
             "     leading spaces",
             words: 2,
-            minutes: 0.01
+            minutes: 0,
+            timeMinutes: 0.01
         )
         Assert(
             "trailing spaces     ",
             words: 2,
-            minutes: 0.01
+            minutes: 0,
+            timeMinutes: 0.01
         )
         Assert(
             "multiple       spaces",
             words: 2,
-            minutes: 0.01
+            minutes: 0,
+            timeMinutes: 0.01
         )
     }
     
@@ -72,17 +82,20 @@ final class ReadingTimeTests: XCTestCase {
         Assert(
             "this has 4.words",
             words: 4,
-            minutes: 0.02
+            minutes: 0,
+            timeMinutes: 0.02
         )
         _Assert(
             "this has 4.0 words",
             words: 4,
-            minutes: 0.02
+            minutes: 1,
+            timeMinutes: 0.02
         )
         _Assert(
             "this hasn't 5 words",
             words: 4,
-            minutes: 0.02
+            minutes: 1,
+            timeMinutes: 0.02
         )
     }
     
@@ -90,12 +103,14 @@ final class ReadingTimeTests: XCTestCase {
         Assert(
             "<p>html with <b>four</b> words</p>",
             words: 4,
-            minutes: 0.02
+            minutes: 0,
+            timeMinutes: 0.02
         )
         Assert(
             "<h1>Header should</h1><p>not merge words</p>",
             words: 5,
-            minutes: 0.025
+            minutes: 0,
+            timeMinutes: 0.025
         )
     }
 }
@@ -104,7 +119,8 @@ func Assert(
     _ string: String,
     words: Int,
     wordsPerMinute: Int = 200,
-    minutes: Double,
+    minutes: Int,
+    timeMinutes: Double,
     file: StaticString = #file,
     line: UInt = #line
 ) {
@@ -112,7 +128,8 @@ func Assert(
         estimateTime(for: string, wordsPerMinute: wordsPerMinute),
         ReadingTimeMetadata(
             minutes: minutes,
-            words: words
+            words: words,
+            timeMinutes: timeMinutes
         ),
         file: file,
         line: line
@@ -123,7 +140,8 @@ func _Assert(
     _ string: String,
     words: Int,
     wordsPerMinute: Int = 200,
-    minutes: Double,
+    minutes: Int,
+    timeMinutes: Double,
     file: StaticString = #file,
     line: UInt = #line
 ) {}

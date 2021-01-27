@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -10,7 +10,7 @@ let package = Package(
             targets: ["ReadingTimePublishPlugin"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/johnsundell/publish.git", from: "0.3.0"),
+        .package(name: "Publish", url: "https://github.com/johnsundell/publish.git", from: "0.7.0"),
     ],
     targets: [
         .target(

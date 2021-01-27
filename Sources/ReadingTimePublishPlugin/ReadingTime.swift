@@ -2,8 +2,9 @@ import Foundation
 import Publish
 
 public struct ReadingTimeMetadata: Equatable {
-    public let minutes: Double
+    public let minutes: Int
     public let words: Int
+    public let timeMinutes: Double
 }
 
 extension Plugin {
@@ -29,7 +30,11 @@ public extension Item {
                 #"Item "\#(self.title)" doesn't have ReadingTimeMetadata. Check that the ReadingTime plugin is installed after the creation of this item."#,
                 .error
             )
-            return ReadingTimeMetadata(minutes: 0, words: 0)
+            return ReadingTimeMetadata(
+                minutes: 0,
+                words: 0,
+                timeMinutes: 0
+            )
         }
         return metadata
     }
@@ -41,8 +46,9 @@ func estimateTime(for string: String, wordsPerMinute: Int) -> ReadingTimeMetadat
     let words = countWords(string)
     let minutes = Double(words) / Double(wordsPerMinute)
     return ReadingTimeMetadata(
-        minutes: minutes,
-        words: words
+        minutes: Int(minutes.rounded()),
+        words: words,
+        timeMinutes: minutes
     )
 }
 
