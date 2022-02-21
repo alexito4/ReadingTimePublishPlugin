@@ -21,6 +21,30 @@ Reading time estimation plugin for [Publish](https://github.com/JohnSundell/Publ
 
 ## Installation
 
+Start by adding the dependency to your project:
+
+```swift
+    dependencies: [
+        ...
+        .package(name: "ReadingTimePublishPlugin", url: "https://github.com/alexito4/ReadingTimePublishPlugin", from: "0.2.0")
+    ],
+```
+
+Then assign it to your target:
+
+```swift
+    targets: [
+        .target(
+            name: "Foo",
+            dependencies: [
+                "Publish",
+                ...
+                "ReadingTimePublishPlugin"
+            ]
+        )
+    ]
+```
+
 ## Usage
 
 The plugin can then be used within any publishing pipeline like this:
