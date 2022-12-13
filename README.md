@@ -50,7 +50,7 @@ Then assign it to your target:
 The plugin can then be used within any publishing pipeline like this:
 
 ```swift
-import PublishReadingTime
+import ReadingTimePublishPlugin
 ...
 try DeliciousRecipes().publish(using: [
     ...
