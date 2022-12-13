@@ -5,11 +5,8 @@
 ">
     <img src="https://github.com/alexito4/ReadingTimePublishPlugin/workflows/Test/badge.svg?branch=master" alt="Status" />
 </a>
-![Swift 5.1](https://img.shields.io/badge/Swift-5.1-orange.svg)
-<a href="https://swift.org/package-manager">
-    <img src="https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
-</a>
-![Mac & Linux](https://img.shields.io/badge/platforms-mac+linux-brightgreen.svg?style=flat)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Falexito4%2FReadingTimePublishPlugin%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/alexito4/ReadingTimePublishPlugin)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Falexito4%2FReadingTimePublishPlugin%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/alexito4/ReadingTimePublishPlugin)
 <a href="https://github.com/JohnSundell/Publish">
     <img src="https://img.shields.io/badge/Publish-Plugin-orange.svg?style=flat" alt="Publish Plugin" />
 </a>
