@@ -1,8 +1,7 @@
-import XCTest
 @testable import ReadingTimePublishPlugin
+import XCTest
 
 final class ReadingTimeTests: XCTestCase {
-    
     func testShortText() {
         Assert(
             "one",
@@ -17,7 +16,7 @@ final class ReadingTimeTests: XCTestCase {
             timeMinutes: 0.02
         )
     }
-    
+
     func testLongText() {
         Assert(
             loremIpsum,
@@ -26,7 +25,7 @@ final class ReadingTimeTests: XCTestCase {
             timeMinutes: 5
         )
     }
-    
+
     func testEmptyText() {
         Assert(
             "",
@@ -42,8 +41,8 @@ final class ReadingTimeTests: XCTestCase {
         )
         Assert(
             """
-            
-            
+
+
             """,
             words: 0,
             minutes: 0,
@@ -56,7 +55,7 @@ final class ReadingTimeTests: XCTestCase {
             timeMinutes: 0
         )
     }
-    
+
     func testMultipleSpaces() {
         Assert(
             "     leading spaces",
@@ -77,7 +76,7 @@ final class ReadingTimeTests: XCTestCase {
             timeMinutes: 0.01
         )
     }
-    
+
     func testPunctuation() {
         Assert(
             "this has 4.words",
@@ -98,7 +97,7 @@ final class ReadingTimeTests: XCTestCase {
             timeMinutes: 0.02
         )
     }
-    
+
     func testHTMLTags() {
         Assert(
             "<p>html with <b>four</b> words</p>",

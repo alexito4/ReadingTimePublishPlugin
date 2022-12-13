@@ -1,11 +1,11 @@
 /**
-* CommandLine extension taken from Publish itself.
-* https://github.com/JohnSundell/Publish/blob/master/Sources/Publish/Internal/CommandLine%2BOutput.swift
-*/
+ * CommandLine extension taken from Publish itself.
+ * https://github.com/JohnSundell/Publish/blob/master/Sources/Publish/Internal/CommandLine%2BOutput.swift
+ */
 
 import Foundation
 
-var output: (String, OutputKind) -> Void = { (string, kind) in
+var output: (String, OutputKind) -> Void = { string, kind in
     var string = string + "\n"
 
     if let emoji = kind.emoji {
@@ -21,7 +21,7 @@ enum OutputKind {
     case error
     case success
 }
-   
+
 private extension OutputKind {
     var emoji: Character? {
         switch self {

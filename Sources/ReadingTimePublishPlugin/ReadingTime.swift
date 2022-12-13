@@ -7,12 +7,11 @@ public struct ReadingTimeMetadata: Equatable {
     public let timeMinutes: Double
 }
 
-extension Plugin {
-    
+public extension Plugin {
     /// Plugin that calculates the average reading time of each `Item`.
     /// Use `Item.readingTime` to access the data.
     /// - Parameter wordsPerMinute: Average reading speed (words per minute) used to calculate the reading time.
-    public static func readingTime(wordsPerMinute: Int = 200) -> Self {
+    static func readingTime(wordsPerMinute: Int = 200) -> Self {
         Plugin(name: "Reading time") { context in
             context.mutateAllSections { section in
                 section.mutateItems { item in
@@ -27,7 +26,7 @@ public extension Item {
     var readingTime: ReadingTimeMetadata {
         guard let metadata = data[path.string] else {
             output(
-                #"Item "\#(self.title)" doesn't have ReadingTimeMetadata. Check that the ReadingTime plugin is installed after the creation of this item."#,
+                #"Item "\#(title)" doesn't have ReadingTimeMetadata. Check that the ReadingTime plugin is installed after the creation of this item."#,
                 .error
             )
             return ReadingTimeMetadata(
@@ -59,6 +58,6 @@ private func countWords(_ string: String) -> Int {
         .whitespacesAndNewlines
         .union(.punctuationCharacters)
     let words = plain.components(separatedBy: separators)
-        .filter({ !$0.isEmpty })
+        .filter { !$0.isEmpty }
     return words.count
 }
